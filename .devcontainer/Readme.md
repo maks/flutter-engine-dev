@@ -19,3 +19,25 @@ Apart from whats in this repo, I first has to do:
 I based my Docker file and devcontainer.json initially on the ones [from this article](https://blog.codemagic.io/how-to-dockerize-flutter-apps/), though I heavily modified it to remove things that were not relevant to building the Flutter engine as well as adding things that were required.
 
 [Detailed instructions](https://code.visualstudio.com/docs/remote/containers) about how the VSC Remote-Containers extension works.
+
+## Handy items for building the flutter engine
+
+[per building docs](https://github.com/flutter/flutter/wiki/Compiling-the-engine):
+
+
+once inside the container, to build for linux desktop on linux:
+```
+export PATH=~/workspace/depot_tools:$PATH
+cd src
+ninja -C out/host_debug_unopt
+```
+
+
+## Handy items for testing the flutter engine
+
+since I use fvm, to run flutter app in a dir alongside this repo with the newly built custom engine (**outside the container**):
+
+```
+fvm flutter 
+--local-engine-src-path ../flutter-engine-dev/engine/src --local-engine=android_debug_unopt -d linux run
+```
